@@ -36,12 +36,34 @@
     .word-image {
       margin-top: 30px;
       max-width: 200px;
+      display: none;
+    }
+    .controls {
+      margin-top: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      background-color: #ffc764;
+      color: #000;
+      cursor: pointer;
+      font-family: 'Avenir', sans-serif;
+    }
+    button:hover {
+      background-color: #e47e00;
+      color: white;
     }
   </style>
 </head>
 <body>
   <h1>Build the Word</h1>
   <div class="card-container" id="cards"></div>
+  <div class="controls">
+    <button id="soundOutBtn">Sound It Out</button>
+    <button id="revealBtn">Reveal Word</button>
+  </div>
   <img id="wordImage" class="word-image" alt="Word Visual" />
 
   <script src="words.js"></script>
@@ -49,6 +71,8 @@
     const currentWord = wordData[Math.floor(Math.random() * wordData.length)];
     const cardContainer = document.getElementById('cards');
     const wordImage = document.getElementById('wordImage');
+    const soundOutBtn = document.getElementById('soundOutBtn');
+    const revealBtn = document.getElementById('revealBtn');
 
     currentWord.parts.forEach(part => {
       const card = document.createElement('div');
@@ -60,8 +84,20 @@
       cardContainer.appendChild(card);
     });
 
-    wordImage.src = currentWord.image;
-    wordImage.alt = currentWord.word;
+    revealBtn.addEventListener('click', () => {
+      wordImage.src = currentWord.image;
+      wordImage.alt = currentWord.word;
+      wordImage.style.display = 'block';
+    });
+
+    soundOutBtn.addEventListener('click', () => {
+      currentWord.parts.forEach((part, i) => {
+        const audio = new Audio(part.replace('.png', '.mp3'));
+        setTimeout(() => {
+          audio.play();
+        }, i * 800);
+      });
+    });
   </script>
 </body>
 </html>
