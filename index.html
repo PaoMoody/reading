@@ -1,110 +1,67 @@
-<<script src="words.js"> </script>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2575.2">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  <meta charset="UTF-8">
+  <title>Word Building Game</title>
+  <style>
+    body {
+      font-family: 'Avenir', sans-serif;
+      background-color: #ffffff;
+      margin: 0;
+      padding: 40px;
+      text-align: center;
+    }
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    .card {
+      width: 80px;
+      height: 100px;
+      margin: 10px;
+      background-color: #fffbe9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #5e98ab;
+      border-radius: 12px;
+      box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
+    }
+    .card img {
+      max-width: 90%;
+      max-height: 90%;
+    }
+    .word-image {
+      margin-top: 30px;
+      max-width: 200px;
+    }
   </style>
 </head>
 <body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html lang="en"&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta charset="UTF-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;title&gt;Phonics Word Builder&lt;/title&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;style&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>body {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-family: Avenir, sans-serif;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background-color: #fff;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>flex-direction: column;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>h1 {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: #e95732;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>#wordContainer {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin: 20px 0;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.letter-img {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>height: 100px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>#controls {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-top: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>button {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 10px 20px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border: none;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 8px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background-color: #6ea560;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: white;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 16px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>cursor: pointer;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>button:hover {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background-color: #5c8b4f;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/style&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;h1&gt;Sound It Out&lt;/h1&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div id="wordContainer"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div id="controls"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;button onclick="playSounds()"&gt;🔊 Sound it out&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;button onclick="nextWord()"&gt;➡️ Next word&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;script src="words.js"&gt;&lt;/script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>let currentIndex = 0;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function renderWord() {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const container = document.getElementById('wordContainer');</p>
-<p class="p1"><span class="Apple-converted-space">      </span>container.innerHTML = '';</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const wordObj = wordData[currentIndex];</p>
-<p class="p1"><span class="Apple-converted-space">      </span>wordObj.parts.forEach(part =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const img = document.createElement('img');</p>
-<p class="p1"><span class="Apple-converted-space">        </span>img.src = part;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>img.alt = part;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>img.className = 'letter-img';</p>
-<p class="p1"><span class="Apple-converted-space">        </span>container.appendChild(img);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>});</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function playSounds() {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const wordObj = wordData[currentIndex];</p>
-<p class="p1"><span class="Apple-converted-space">      </span>let i = 0;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>function playNext() {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (i &lt; wordObj.parts.length) {</p>
-<p class="p1"><span class="Apple-converted-space">          </span>const audioFile = wordObj.parts[i].replace('.png', '.mp3');</p>
-<p class="p1"><span class="Apple-converted-space">          </span>const audio = new Audio(audioFile);</p>
-<p class="p1"><span class="Apple-converted-space">          </span>audio.onended = playNext;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>audio.play();</p>
-<p class="p1"><span class="Apple-converted-space">          </span>i++;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p1"><span class="Apple-converted-space">      </span>playNext();</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function nextWord() {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>currentIndex = (currentIndex + 1) % wordData.length;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>renderWord();</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>// Initialize</p>
-<p class="p1"><span class="Apple-converted-space">    </span>renderWord();</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/script&gt;</p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
+  <h1>Build the Word</h1>
+  <div class="card-container" id="cards"></div>
+  <img id="wordImage" class="word-image" alt="Word Visual" />
+
+  <script src="words.js"></script>
+  <script>
+    const currentWord = wordData[Math.floor(Math.random() * wordData.length)];
+    const cardContainer = document.getElementById('cards');
+    const wordImage = document.getElementById('wordImage');
+
+    currentWord.parts.forEach(part => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      const img = document.createElement('img');
+      img.src = part;
+      img.alt = part;
+      card.appendChild(img);
+      cardContainer.appendChild(card);
+    });
+
+    wordImage.src = currentWord.image;
+    wordImage.alt = currentWord.word;
+  </script>
 </body>
 </html>
