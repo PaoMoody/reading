@@ -78,21 +78,21 @@
       const card = document.createElement('div');
       card.className = 'card';
       const img = document.createElement('img');
-      img.src = part;
+      img.src = encodeURI(part);
       img.alt = part;
       card.appendChild(img);
       cardContainer.appendChild(card);
     });
 
     revealBtn.addEventListener('click', () => {
-      wordImage.src = currentWord.image;
+      wordImage.src = encodeURI(currentWord.image);
       wordImage.alt = currentWord.word;
       wordImage.style.display = 'block';
     });
 
     soundOutBtn.addEventListener('click', () => {
       currentWord.parts.forEach((part, i) => {
-        const audio = new Audio(part.replace('.png', '.mp3'));
+        const audio = new Audio(encodeURI(part.replace('.png', '.mp3')));
         setTimeout(() => {
           audio.play();
         }, i * 800);
