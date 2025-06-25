@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Word Building Game</title>
@@ -64,10 +63,20 @@
     <button id="soundOutBtn">Sound It Out</button>
     <button id="revealBtn">Reveal Word</button>
   </div>
-  <img id="wordImage" class="word-image" alt="Word Visual" />
+  <img id="wordImage" class="word-image" alt="Word Visual" />  <script>
+    const wordData = [
+      {
+        word: "pen",
+        parts: ["P.png", "short-e.png", "N.png"],
+        image: "pen.png"
+      },
+      {
+        word: "cake",
+        parts: ["C.png", "long-a.png", "K.png", "magic-E.png"],
+        image: "cake.png"
+      }
+    ];
 
-  <script src="words.js"></script>
-  <script>
     const currentWord = wordData[Math.floor(Math.random() * wordData.length)];
     const cardContainer = document.getElementById('cards');
     const wordImage = document.getElementById('wordImage');
@@ -98,6 +107,5 @@
         }, i * 800);
       });
     });
-  </script>
-</body>
+  </script></body>
 </html>
