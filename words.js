@@ -1,10 +1,141 @@
-{\rtf1\ansi\ansicpg1252\cocoartf2820
-\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\froman\fcharset0 Times-Roman;}
-{\colortbl;\red255\green255\blue255;\red0\green0\blue0;}
-{\*\expandedcolortbl;;\cssrgb\c0\c0\c0;}
-\margl1440\margr1440\vieww11520\viewh8400\viewkind0
-\deftab720
-\pard\pardeftab720\partightenfactor0
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Word Building Game</title>
+  <style>
+    body {
+      font-family: 'Avenir', sans-serif;
+      background-color: #ffffff;
+      margin: 0;
+      padding: 40px;
+      text-align: center;
+    }
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    .card {
+      width: 80px;
+      height: 100px;
+      margin: 10px;
+      background-color: #fffbe9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #5e98ab;
+      border-radius: 12px;
+      box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
+    }
+    .card img {
+      max-width: 90%;
+      max-height: 90%;
+    }
+    .word-image {
+      margin-top: 30px;
+      max-width: 200px;
+      display: none;
+    }
+    .controls {
+      margin-top: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      background-color: #ffc764;
+      color: #000;
+      cursor: pointer;
+      font-family: 'Avenir', sans-serif;
+    }
+    button:hover {
+      background-color: #e47e00;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <h1>Build the Word</h1>
+  <div class="card-container" id="cards"></div>
+  <div class="controls">
+    <button id="soundOutBtn">Sound It Out</button>
+    <button id="revealBtn">Reveal Word</button>
+    <button id="nextWordBtn">Next Word</button>
+  </div>
+  <img id="wordImage" class="word-image" alt="Word Visual" />
 
-\f0\fs24 \cf0 \expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 # Define basic short and long vowel sets for Stage 1: Vowel Twins # Short vowel word examples short_vowel_words = \{ "short-a": ["cat", "bat", "rat", "map", "cap", "bag", "dad", "man", "jam", "hat", "fan", "can", "van", "pan", "tap", "nap", "lap", "mad", "sad", "bad"], "short-e": ["bed", "red", "pen", "ten", "men", "hen", "net", "pet", "wet", "jet", "leg", "peg", "beg", "set", "get", "met", "let", "fed", "led", "web"], "short-i": ["pig", "dig", "big", "fig", "lid", "kid", "pin", "win", "fin", "bin", "sit", "hit", "bit", "kit", "zip", "lip", "tip", "dip", "rip", "mix"], "short-o": ["dog", "log", "fog", "hog", "pot", "hot", "cot", "dot", "mop", "top", "pop", "hop", "cop", "box", "fox", "rock", "sock", "lock", "clock", "rod"], "short-u": ["cup", "pup", "mud", "bud", "sun", "run", "fun", "gun", "nut", "cut", "hut", "rug", "hug", "bug", "mug", "tub", "sub", "cub", "luck", "duck"] \} # Long vowel word examples using basic long-vowel patterns long_vowel_words = \{ "long-a": ["cake", "bake", "lake", "rake", "make", "take", "fake", "name", "same", "game", "tape", "cape", "grape", "shape", "frame", "plane", "flame", "blame", "brake", "snake"], "long-e": ["see", "tree", "free", "bee", "feet", "meet", "greet", "sweet", "sleep", "deep", "sheep", "creep", "keep", "beet", "cheese", "wheel", "green", "peek", "week", "sweep"], "long-i": ["bike", "like", "hike", "dime", "time", "slime", "line", "mine", "fine", "pine", "kite", "bite", "site", "white", "shine", "wine", "slide", "ride", "hide", "side"], "long-o": ["home", "rope", "hope", "note", "vote", "bone", "cone", "stone", "phone", "alone", "pole", "hole", "joke", "poke", "smoke", "broke", "close", "nose", "those", "rose"], "long-u": ["cube", "tube", "mule", "flute", "cute", "mute", "duke", "rule", "use", "fuse", "blue", "glue", "true", "rescue", "issue", "argue", "avenue", "value", "queue", "fuel"] \} # Create the dataset data = [] # Short vowels for vowel, words in short_vowel_words.items(): for word in words: parts = [char.upper() + ".png" if char not in "aeiou" else vowel + ".png" for char in word] data.append(\{ "word": word, "parts": parts, "image": f"\{word\}.png" \}) # Long vowels for vowel, words in long_vowel_words.items(): for word in words: # Try to break the word into CVCe or similar where the long vowel is in the middle # We'll place 'long-\{vowel\}' as appropriate and include magic-E if relevant if word.endswith('e'): base = word[:-1] if len(base) == 3: parts = [base[0].upper() + ".png", vowel + ".png", base[2].upper() + ".png", "magic-E.png"] else: # fallback: treat each letter as usual parts = [char.upper() + ".png" if char not in "aeiou" else vowel + ".png" for char in base] parts.append("magic-E.png") else: parts = [char.upper() + ".png" if char not in "aeiou" else vowel + ".png" for char in word] data.append(\{ "word": word, "parts": parts, "image": f"\{word\}.png" \}) df = pd.DataFrame(data) from ace_tools import display_dataframe_to_user display_dataframe_to_user(name="Stage 1 - Vowel Twins Word List", dataframe=df)}
+  <script>
+    const wordData = [
+      {
+        word: "cat",
+        parts: [
+          { img: "C.png", audio: "C.mp3" },
+          { img: "short-a.png", audio: "short-a.mp3" },
+          { img: "T.png", audio: "T.mp3" }
+        ],
+        image: "cat.png"
+      },
+      {
+        word: "bat",
+        parts: [
+          { img: "B.png", audio: "B.mp3" },
+          { img: "short-a.png", audio: "short-a.mp3" },
+          { img: "T.png", audio: "T.mp3" }
+        ],
+        image: "bat.png"
+      }
+      // Add more words here in the same format
+    ];
+
+    let currentIndex = 0;
+    const cardContainer = document.getElementById('cards');
+    const wordImage = document.getElementById('wordImage');
+    const soundOutBtn = document.getElementById('soundOutBtn');
+    const revealBtn = document.getElementById('revealBtn');
+    const nextWordBtn = document.getElementById('nextWordBtn');
+
+    function showWord(index) {
+      const currentWord = wordData[index];
+      cardContainer.innerHTML = '';
+      wordImage.style.display = 'none';
+      currentWord.parts.forEach(part => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        const img = document.createElement('img');
+        img.src = part.img;
+        img.alt = part.img;
+        card.appendChild(img);
+        cardContainer.appendChild(card);
+      });
+    }
+
+    revealBtn.addEventListener('click', () => {
+      const currentWord = wordData[currentIndex];
+      wordImage.src = currentWord.image;
+      wordImage.alt = currentWord.word;
+      wordImage.style.display = 'block';
+    });
+
+    soundOutBtn.addEventListener('click', () => {
+      const currentWord = wordData[currentIndex];
+      currentWord.parts.forEach((part, i) => {
+        const audio = new Audio(part.audio);
+        setTimeout(() => {
+          audio.play();
+        }, i * 800);
+      });
+    });
+
+    nextWordBtn.addEventListener('click', () => {
+      currentIndex = (currentIndex + 1) % wordData.length;
+      showWord(currentIndex);
+    });
+
+    // Load the first word
+    showWord(currentIndex);
+  </script>
+</body>
+</html>
