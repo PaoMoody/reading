@@ -69,7 +69,28 @@
   <img id="wordImage" class="word-image" alt="Word Visual" />
 
   <script>
-    let currentIndex = 0;
+   let shuffledWords = [];
+let currentIndex = 0;
+
+function shuffleWords() {
+  shuffledWords = [...wordData].sort(() => Math.random() - 0.5);
+  currentIndex = 0;
+}
+
+function nextWord() {
+  if (currentIndex >= shuffledWords.length) {
+    shuffleWords(); // Start a new round
+  }
+  showWord(shuffledWords[currentIndex]);
+  currentIndex++;
+}
+
+nextWordBtn.addEventListener('click', nextWord);
+
+// Initial load
+shuffleWords();
+nextWord();
+
     const cardContainer = document.getElementById('cards');
     const wordImage = document.getElementById('wordImage');
     const soundOutBtn = document.getElementById('soundOutBtn');
