@@ -18,8 +18,8 @@
       margin-top: 20px;
     }
     .card {
-      width: 120px;
-      height: 140px;
+      width: 80px;
+      height: 100px;
       margin: 10px;
       background-color: #fffbe9;
       display: flex;
@@ -32,11 +32,6 @@
     .card img {
       max-width: 90%;
       max-height: 90%;
-    }
-    .word-image {
-      margin-top: 30px;
-      max-width: 200px;
-      display: none;
     }
     .controls {
       margin-top: 20px;
@@ -55,44 +50,77 @@
       background-color: #e47e00;
       color: white;
     }
+    #scoreboard {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    select {
+      padding: 10px;
+      font-size: 16px;
+      font-family: 'Avenir', sans-serif;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
   </style>
+  <script src="words.js"></script>
 </head>
 <body>
-  <script src="words.js"></script>
-
   <h1>Build the Word</h1>
+  <div class="controls">
+    <label for="levelSelect">Choose Level:</label>
+    <select id="levelSelect">
+      <option value="1">Level 1: Short Vowels</option>
+      <option value="2">Level 2: Magic E</option>
+      <option value="3">Level 3: Vowel Teams</option>
+    </select>
+  </div>
+
   <div class="card-container" id="cards"></div>
   <div class="controls">
     <button id="soundOutBtn">Sound It Out</button>
     <button id="revealBtn">Reveal Word</button>
+    <button id="correctBtn">✓ Correct</button>
     <button id="nextWordBtn">Next Word</button>
   </div>
-  <img id="wordImage" class="word-image" alt="Word Visual" />
+
+  <div id="scoreboard"></div>
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      if (typeof wordData === "undefined") {
-        console.error("wordData is not defined. Make sure words.js is loaded correctly.");
+      if (typeof wordLevels === "undefined") {
+        console.error("wordLevels is not defined. Make sure words.js is loaded correctly.");
         return;
       }
 
       let shuffledWords = [];
       let currentIndex = 0;
+      let correctCount = 0;
+      let totalCount = 0;
 
       const cardContainer = document.getElementById('cards');
-      const wordImage = document.getElementById('wordImage');
       const soundOutBtn = document.getElementById('soundOutBtn');
       const revealBtn = document.getElementById('revealBtn');
+      const correctBtn = document.getElementById('correctBtn');
       const nextWordBtn = document.getElementById('nextWordBtn');
+      const levelSelect = document.getElementById('levelSelect');
+      const scoreboard = document.getElementById('scoreboard');
+
+      function updateScore() {
+        scoreboard.textContent = `Correct: ${correctCount} / ${totalCount}`;
+      }
 
       function shuffleWords() {
-        shuffledWords = [...wordData].sort(() => Math.random() - 0.5);
+        const selectedLevel = levelSelect.value;
+        const words = wordLevels[selectedLevel] || [];
+        shuffledWords = [...words].sort(() => Math.random() - 0.5);
         currentIndex = 0;
+        correctCount = 0;
+        totalCount = 0;
+        updateScore();
       }
 
       function showWord(wordObj) {
         cardContainer.innerHTML = '';
-        wordImage.style.display = 'none';
         wordObj.parts.forEach(part => {
           const card = document.createElement('div');
           card.className = 'card';
@@ -111,13 +139,13 @@
         const wordObj = shuffledWords[currentIndex];
         showWord(wordObj);
         currentIndex++;
+        totalCount++;
+        updateScore();
       }
 
       revealBtn.addEventListener('click', () => {
         const wordObj = shuffledWords[currentIndex - 1];
-        wordImage.src = wordObj.image;
-        wordImage.alt = wordObj.word;
-        wordImage.style.display = 'block';
+        alert(`The word is: ${wordObj.word}`);
       });
 
       soundOutBtn.addEventListener('click', () => {
@@ -130,7 +158,16 @@
         });
       });
 
+      correctBtn.addEventListener('click', () => {
+        correctCount++;
+        updateScore();
+      });
+
       nextWordBtn.addEventListener('click', nextWord);
+      levelSelect.addEventListener('change', () => {
+        shuffleWords();
+        nextWord();
+      });
 
       shuffleWords();
       nextWord();
@@ -138,6 +175,7 @@
   </script>
 </body>
 </html>
+
 
 
 
