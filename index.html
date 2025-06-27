@@ -1,62 +1,69 @@
 <script>
-  let shuffledWords = [];
-  let currentIndex = 0;
-
-  const cardContainer = document.getElementById('cards');
-  const wordImage = document.getElementById('wordImage');
-  const soundOutBtn = document.getElementById('soundOutBtn');
-  const revealBtn = document.getElementById('revealBtn');
-  const nextWordBtn = document.getElementById('nextWordBtn');
-
-  function shuffleWords() {
-    shuffledWords = [...wordData].sort(() => Math.random() - 0.5);
-    currentIndex = 0;
-  }
-
-  function showWord(wordObj) {
-    cardContainer.innerHTML = '';
-    wordImage.style.display = 'none';
-    wordObj.parts.forEach(part => {
-      const card = document.createElement('div');
-      card.className = 'card';
-      const img = document.createElement('img');
-      img.src = part;
-      img.alt = part;
-      card.appendChild(img);
-      cardContainer.appendChild(card);
-    });
-  }
-
-  function nextWord() {
-    if (currentIndex >= shuffledWords.length) {
-      shuffleWords(); // reshuffle for a new round
+  document.addEventListener("DOMContentLoaded", () => {
+    if (typeof wordData === "undefined") {
+      console.error("wordData is not defined. Make sure words.js is loaded correctly.");
+      return;
     }
-    const wordObj = shuffledWords[currentIndex];
-    showWord(wordObj);
-    currentIndex++;
-  }
 
-  revealBtn.addEventListener('click', () => {
-    const wordObj = shuffledWords[currentIndex - 1]; // current word
-    wordImage.src = wordObj.image;
-    wordImage.alt = wordObj.word;
-    wordImage.style.display = 'block';
-  });
+    let shuffledWords = [];
+    let currentIndex = 0;
 
-  soundOutBtn.addEventListener('click', () => {
-    const wordObj = shuffledWords[currentIndex - 1];
-    wordObj.parts.forEach((part, i) => {
-      const audio = new Audio(part.replace('.png', '.mp3'));
-      setTimeout(() => {
-        audio.play();
-      }, i * 800);
+    const cardContainer = document.getElementById('cards');
+    const wordImage = document.getElementById('wordImage');
+    const soundOutBtn = document.getElementById('soundOutBtn');
+    const revealBtn = document.getElementById('revealBtn');
+    const nextWordBtn = document.getElementById('nextWordBtn');
+
+    function shuffleWords() {
+      shuffledWords = [...wordData].sort(() => Math.random() - 0.5);
+      currentIndex = 0;
+    }
+
+    function showWord(wordObj) {
+      cardContainer.innerHTML = '';
+      wordImage.style.display = 'none';
+      wordObj.parts.forEach(part => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        const img = document.createElement('img');
+        img.src = part;
+        img.alt = part;
+        card.appendChild(img);
+        cardContainer.appendChild(card);
+      });
+    }
+
+    function nextWord() {
+      if (currentIndex >= shuffledWords.length) {
+        shuffleWords();
+      }
+      const wordObj = shuffledWords[currentIndex];
+      showWord(wordObj);
+      currentIndex++;
+    }
+
+    revealBtn.addEventListener('click', () => {
+      const wordObj = shuffledWords[currentIndex - 1];
+      wordImage.src = wordObj.image;
+      wordImage.alt = wordObj.word;
+      wordImage.style.display = 'block';
     });
+
+    soundOutBtn.addEventListener('click', () => {
+      const wordObj = shuffledWords[currentIndex - 1];
+      wordObj.parts.forEach((part, i) => {
+        const audio = new Audio(part.replace('.png', '.mp3'));
+        setTimeout(() => {
+          audio.play();
+        }, i * 800);
+      });
+    });
+
+    nextWordBtn.addEventListener('click', nextWord);
+
+    shuffleWords();
+    nextWord();
   });
-
-  nextWordBtn.addEventListener('click', nextWord);
-
-  // Initial load
-  shuffleWords();
-  nextWord();
 </script>
+
 
