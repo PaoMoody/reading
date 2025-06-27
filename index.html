@@ -96,7 +96,8 @@ nextWord();
     const soundOutBtn = document.getElementById('soundOutBtn');
     const revealBtn = document.getElementById('revealBtn');
     const nextWordBtn = document.getElementById('nextWordBtn');
-
+shuffleWords();
+nextWord();
     function showWord(index) {
       const currentWord = wordData[index];
       cardContainer.innerHTML = '';
