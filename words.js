@@ -1,141 +1,58 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Word Building Game</title>
-  <style>
-    body {
-      font-family: 'Avenir', sans-serif;
-      background-color: #ffffff;
-      margin: 0;
-      padding: 40px;
-      text-align: center;
-    }
-    .card-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-top: 20px;
-    }
-    .card {
-      width: 80px;
-      height: 100px;
-      margin: 10px;
-      background-color: #fffbe9;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 2px solid #5e98ab;
-      border-radius: 12px;
-      box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
-    }
-    .card img {
-      max-width: 90%;
-      max-height: 90%;
-    }
-    .word-image {
-      margin-top: 30px;
-      max-width: 200px;
-      display: none;
-    }
-    .controls {
-      margin-top: 20px;
-    }
-    button {
-      padding: 10px 20px;
-      font-size: 16px;
-      border: none;
-      border-radius: 8px;
-      background-color: #ffc764;
-      color: #000;
-      cursor: pointer;
-      font-family: 'Avenir', sans-serif;
-    }
-    button:hover {
-      background-color: #e47e00;
-      color: white;
-    }
-  </style>
-</head>
-<body>
-  <h1>Build the Word</h1>
-  <div class="card-container" id="cards"></div>
-  <div class="controls">
-    <button id="soundOutBtn">Sound It Out</button>
-    <button id="revealBtn">Reveal Word</button>
-    <button id="nextWordBtn">Next Word</button>
-  </div>
-  <img id="wordImage" class="word-image" alt="Word Visual" />
+const wordData = [
+  // Short A
+  { word: "bag", parts: ["B.png", "short-a.png", "G.png"], image: "bag.png" },
+  { word: "bat", parts: ["B.png", "short-a.png", "T.png"], image: "bat.png" },
+  { word: "cap", parts: ["C.png", "short-a.png", "P.png"], image: "cap.png" },
+  { word: "cat", parts: ["C.png", "short-a.png", "T.png"], image: "cat.png" },
+  { word: "dad", parts: ["D.png", "short-a.png", "D.png"], image: "dad.png" },
+  { word: "fan", parts: ["F.png", "short-a.png", "N.png"], image: "fan.png" },
+  { word: "gap", parts: ["G.png", "short-a.png", "P.png"], image: "gap.png" },
+  { word: "ham", parts: ["H.png", "short-a.png", "M.png"], image: "ham.png" },
+  { word: "jam", parts: ["J.png", "short-a.png", "M.png"], image: "jam.png" },
+  { word: "lap", parts: ["L.png", "short-a.png", "P.png"], image: "lap.png" },
+  { word: "man", parts: ["M.png", "short-a.png", "N.png"], image: "man.png" },
+  { word: "mat", parts: ["M.png", "short-a.png", "T.png"], image: "mat.png" },
+  { word: "nap", parts: ["N.png", "short-a.png", "P.png"], image: "nap.png" },
+  { word: "pan", parts: ["P.png", "short-a.png", "N.png"], image: "pan.png" },
+  { word: "pat", parts: ["P.png", "short-a.png", "T.png"], image: "pat.png" },
+  { word: "rag", parts: ["R.png", "short-a.png", "G.png"], image: "rag.png" },
+  { word: "rat", parts: ["R.png", "short-a.png", "T.png"], image: "rat.png" },
+  { word: "sad", parts: ["S.png", "short-a.png", "D.png"], image: "sad.png" },
+  { word: "sat", parts: ["S.png", "short-a.png", "T.png"], image: "sat.png" },
+  { word: "tap", parts: ["T.png", "short-a.png", "P.png"], image: "tap.png" },
 
-  <script>
-    const wordData = [
-      {
-        word: "cat",
-        parts: [
-          { img: "C.png", audio: "C.mp3" },
-          { img: "short-a.png", audio: "short-a.mp3" },
-          { img: "T.png", audio: "T.mp3" }
-        ],
-        image: "cat.png"
-      },
-      {
-        word: "bat",
-        parts: [
-          { img: "B.png", audio: "B.mp3" },
-          { img: "short-a.png", audio: "short-a.mp3" },
-          { img: "T.png", audio: "T.mp3" }
-        ],
-        image: "bat.png"
-      }
-      // Add more words here in the same format
-    ];
+  // Short E
+  { word: "bed", parts: ["B.png", "short-e.png", "D.png"], image: "bed.png" },
+  { word: "beg", parts: ["B.png", "short-e.png", "G.png"], image: "beg.png" },
+  { word: "den", parts: ["D.png", "short-e.png", "N.png"], image: "den.png" },
+  { word: "fed", parts: ["F.png", "short-e.png", "D.png"], image: "fed.png" },
+  { word: "gem", parts: ["G.png", "short-e.png", "M.png"], image: "gem.png" },
+  { word: "get", parts: ["G.png", "short-e.png", "T.png"], image: "get.png" },
+  { word: "hen", parts: ["H.png", "short-e.png", "N.png"], image: "hen.png" },
+  { word: "jet", parts: ["J.png", "short-e.png", "T.png"], image: "jet.png" },
+  { word: "leg", parts: ["L.png", "short-e.png", "G.png"], image: "leg.png" },
+  { word: "men", parts: ["M.png", "short-e.png", "N.png"], image: "men.png" },
+  { word: "net", parts: ["N.png", "short-e.png", "T.png"], image: "net.png" },
+  { word: "pen", parts: ["P.png", "short-e.png", "N.png"], image: "pen.png" },
+  { word: "pet", parts: ["P.png", "short-e.png", "T.png"], image: "pet.png" },
+  { word: "red", parts: ["R.png", "short-e.png", "D.png"], image: "red.png" },
+  { word: "set", parts: ["S.png", "short-e.png", "T.png"], image: "set.png" },
+  { word: "ten", parts: ["T.png", "short-e.png", "N.png"], image: "ten.png" },
+  { word: "vet", parts: ["V.png", "short-e.png", "T.png"], image: "vet.png" },
+  { word: "web", parts: ["W.png", "short-e.png", "B.png"], image: "web.png" },
+  { word: "wet", parts: ["W.png", "short-e.png", "T.png"], image: "wet.png" },
+  { word: "yes", parts: ["Y.png", "short-e.png", "S.png"], image: "yes.png" },
 
-    let currentIndex = 0;
-    const cardContainer = document.getElementById('cards');
-    const wordImage = document.getElementById('wordImage');
-    const soundOutBtn = document.getElementById('soundOutBtn');
-    const revealBtn = document.getElementById('revealBtn');
-    const nextWordBtn = document.getElementById('nextWordBtn');
+  // Short I (sample)
+  { word: "pig", parts: ["P.png", "short-i.png", "G.png"], image: "pig.png" },
+  { word: "fig", parts: ["F.png", "short-i.png", "G.png"], image: "fig.png" },
+  { word: "big", parts: ["B.png", "short-i.png", "G.png"], image: "big.png" },
 
-    function showWord(index) {
-      const currentWord = wordData[index];
-      cardContainer.innerHTML = '';
-      wordImage.style.display = 'none';
-      currentWord.parts.forEach(part => {
-        const card = document.createElement('div');
-        card.className = 'card';
-        const img = document.createElement('img');
-        img.src = part.img;
-        img.alt = part.img;
-        card.appendChild(img);
-        cardContainer.appendChild(card);
-      });
-    }
+  // Long A (Magic-E example)
+  { word: "cake", parts: ["C.png", "long-a.png", "K.png", "magic-E.png"], image: "cake.png" },
+  { word: "bake", parts: ["B.png", "long-a.png", "K.png", "magic-E.png"], image: "bake.png" },
 
-    revealBtn.addEventListener('click', () => {
-      const currentWord = wordData[currentIndex];
-      wordImage.src = currentWord.image;
-      wordImage.alt = currentWord.word;
-      wordImage.style.display = 'block';
-    });
-
-    soundOutBtn.addEventListener('click', () => {
-      const currentWord = wordData[currentIndex];
-      currentWord.parts.forEach((part, i) => {
-        const audio = new Audio(part.audio);
-        setTimeout(() => {
-          audio.play();
-        }, i * 800);
-      });
-    });
-
-    nextWordBtn.addEventListener('click', () => {
-      currentIndex = (currentIndex + 1) % wordData.length;
-      showWord(currentIndex);
-    });
-
-    // Load the first word
-    showWord(currentIndex);
-  </script>
-</body>
-</html>
+  // Long I (Magic-E example)
+  { word: "bike", parts: ["B.png", "long-i.png", "K.png", "magic-E.png"], image: "bike.png" },
+  { word: "like", parts: ["L.png", "long-i.png", "K.png", "magic-E.png"], image: "like.png" }
+];
