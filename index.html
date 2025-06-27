@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Word Building Game</title>
@@ -55,6 +56,7 @@
       color: white;
     }
   </style>
+  <script src="words.js"></script>
 </head>
 <body>
   <h1>Build the Word</h1>
@@ -62,41 +64,27 @@
   <div class="controls">
     <button id="soundOutBtn">Sound It Out</button>
     <button id="revealBtn">Reveal Word</button>
-    <button id="nextBtn">Next Word</button>
+    <button id="nextWordBtn">Next Word</button>
   </div>
-  <img id="wordImage" class="word-image" alt="Word Visual" />  <script>
-    const wordData = [
-      { word: "pen", parts: ["P.png", "short-e.png", "N.png"], image: "pen.png" },
-      { word: "cake", parts: ["C.png", "long-a.png", "K.png", "magic-E.png"], image: "cake.png" },
-      { word: "cat", parts: ["C.png", "short-a.png", "T.png"], image: "cat.png" },
-      { word: "dog", parts: ["D.png", "short-o.png", "G.png"], image: "dog.png" },
-      { word: "bug", parts: ["B.png", "short-u.png", "G.png"], image: "bug.png" },
-      { word: "pig", parts: ["P.png", "short-i.png", "G.png"], image: "pig.png" },
-      { word: "hen", parts: ["H.png", "short-e.png", "N.png"], image: "hen.png" },
-      { word: "bike", parts: ["B.png", "long-i.png", "K.png", "magic-E.png"], image: "bike.png" },
-      { word: "home", parts: ["H.png", "long-o.png", "M.png", "magic-E.png"], image: "home.png" },
-      { word: "cube", parts: ["C.png", "long-u.png", "B.png", "magic-E.png"], image: "cube.png" },
-      { word: "see", parts: ["S.png", "long-e.png", "long-e.png"], image: "see.png" }
-    ];
+  <img id="wordImage" class="word-image" alt="Word Visual" />
 
+  <script>
+    let currentIndex = 0;
     const cardContainer = document.getElementById('cards');
     const wordImage = document.getElementById('wordImage');
     const soundOutBtn = document.getElementById('soundOutBtn');
     const revealBtn = document.getElementById('revealBtn');
-    const nextBtn = document.getElementById('nextBtn');
+    const nextWordBtn = document.getElementById('nextWordBtn');
 
-    let currentWord;
-
-    function loadWord() {
-      currentWord = wordData[Math.floor(Math.random() * wordData.length)];
+    function showWord(index) {
+      const currentWord = wordData[index];
       cardContainer.innerHTML = '';
       wordImage.style.display = 'none';
-
       currentWord.parts.forEach(part => {
         const card = document.createElement('div');
         card.className = 'card';
         const img = document.createElement('img');
-        img.src = encodeURI(part);
+        img.src = part;
         img.alt = part;
         card.appendChild(img);
         cardContainer.appendChild(card);
@@ -104,12 +92,14 @@
     }
 
     revealBtn.addEventListener('click', () => {
-      wordImage.src = encodeURI(currentWord.image);
+      const currentWord = wordData[currentIndex];
+      wordImage.src = currentWord.image;
       wordImage.alt = currentWord.word;
       wordImage.style.display = 'block';
     });
 
     soundOutBtn.addEventListener('click', () => {
+      const currentWord = wordData[currentIndex];
       currentWord.parts.forEach((part, i) => {
         const audio = new Audio(part.replace('.png', '.mp3'));
         setTimeout(() => {
@@ -118,9 +108,13 @@
       });
     });
 
-    nextBtn.addEventListener('click', loadWord);
+    nextWordBtn.addEventListener('click', () => {
+      currentIndex = (currentIndex + 1) % wordData.length;
+      showWord(currentIndex);
+    });
 
-    loadWord();
-    <script src="words.js"></script>
-  </script></body>
+    // Load the first word
+    showWord(currentIndex);
+  </script>
+</body>
 </html>
