@@ -43,16 +43,25 @@ const wordData = [
   { word: "wet", parts: ["W.png", "short-e.png", "T.png"], image: "wet.png" },
   { word: "yes", parts: ["Y.png", "short-e.png", "S.png"], image: "yes.png" },
 
-  // Short I (sample)
-  { word: "pig", parts: ["P.png", "short-i.png", "G.png"], image: "pig.png" },
-  { word: "fig", parts: ["F.png", "short-i.png", "G.png"], image: "fig.png" },
+  // Short I
+  { word: "bib", parts: ["B.png", "short-i.png", "B.png"], image: "bib.png" },
   { word: "big", parts: ["B.png", "short-i.png", "G.png"], image: "big.png" },
-
-  // Long A (Magic-E example)
-  { word: "cake", parts: ["C.png", "long-a.png", "K.png", "magic-E.png"], image: "cake.png" },
-  { word: "bake", parts: ["B.png", "long-a.png", "K.png", "magic-E.png"], image: "bake.png" },
-
-  // Long I (Magic-E example)
-  { word: "bike", parts: ["B.png", "long-i.png", "K.png", "magic-E.png"], image: "bike.png" },
-  { word: "like", parts: ["L.png", "long-i.png", "K.png", "magic-E.png"], image: "like.png" }
+  { word: "bin", parts: ["B.png", "short-i.png", "N.png"], image: "bin.png" },
+  { word: "bit", parts: ["B.png", "short-i.png", "T.png"], image: "bit.png" },
+  { word: "dig", parts: ["D.png", "short-i.png", "G.png"], image: "dig.png" },
+  { word: "dip", parts: ["D.png", "short-i.png", "P.png"], image: "dip.png" },
+  { word: "fig", parts: ["F.png", "short-i.png", "G.png"], image: "fig.png" },
+  { word: "fin", parts: ["F.png", "short-i.png", "N.png"], image: "fin.png" },
+  { word: "fit", parts: ["F.png", "short-i.png", "T.png"], image: "fit.png" },
+  { word: "gig", parts: ["G.png", "short-i.png", "G.png"], image: "gig.png" },
+  { word: "him", parts: ["H.png", "short-i.png", "M.png"], image: "him.png" },
+  { word: "hip", parts: ["H.png", "short-i.png", "P.png"], image: "hip.png" },
+  { word: "kid", parts: ["K.png", "short-i.png", "D.png"], image: "kid.png" },
+  { word: "lid", parts: ["L.png", "short-i.png", "D.png"], image: "lid.png" },
+  { word: "lip", parts: ["L.png", "short-i.png", "P.png"], image: "lip.png" },
+  { word: "pig", parts: ["P.png", "short-i.png", "G.png"], image: "pig.png" },
+  { word: "pin", parts: ["P.png", "short-i.png", "N.png"], image: "pin.png" },
+  { word: "pit", parts: ["P.png", "short-i.png", "T.png"], image: "pit.png" },
+  { word: "sit", parts: ["S.png", "short-i.png", "T.png"], image: "sit.png" },
+  { word: "wig", parts: ["W.png", "short-i.png", "G.png"], image: "wig.png" }
 ];
