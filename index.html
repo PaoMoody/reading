@@ -45,6 +45,7 @@
       color: #000;
       cursor: pointer;
       font-family: 'Avenir', sans-serif;
+      margin: 5px;
     }
     button:hover {
       background-color: #e47e00;
@@ -54,127 +55,121 @@
       margin-top: 15px;
       font-weight: bold;
     }
-    select {
-      padding: 10px;
-      font-size: 16px;
-      font-family: 'Avenir', sans-serif;
-      border-radius: 8px;
-      margin-bottom: 15px;
+    #levelMenu {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    #gameArea {
+      display: none;
     }
   </style>
   <script src="words.js"></script>
 </head>
 <body>
   <h1>Build the Word</h1>
-  <div class="controls">
-    <label for="levelSelect">Choose Level:</label>
-    <select id="levelSelect">
-      <option value="1">Level 1: Short Vowels</option>
-      <option value="2">Level 2: Magic E</option>
-      <option value="3">Level 3: Vowel Teams</option>
-    </select>
+
+  <div id="levelMenu">
+    <p>Select a Level:</p>
+    <button onclick="startGame(1)">Level 1: Short Vowels</button>
+    <button onclick="startGame(2)">Level 2: Magic E</button>
+    <button onclick="startGame(3)">Level 3: Vowel Teams</button>
   </div>
 
-  <div class="card-container" id="cards"></div>
-  <div class="controls">
-    <button id="soundOutBtn">Sound It Out</button>
-    <button id="revealBtn">Reveal Word</button>
-    <button id="correctBtn">✓ Correct</button>
-    <button id="nextWordBtn">Next Word</button>
+  <div id="gameArea">
+    <div class="card-container" id="cards"></div>
+    <div class="controls">
+      <button id="soundOutBtn">Sound It Out</button>
+      <button id="correctBtn">✓ Correct</button>
+      <button id="incorrectBtn">✗ Not Yet</button>
+    </div>
+    <div id="scoreboard"></div>
   </div>
-
-  <div id="scoreboard"></div>
 
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      if (typeof wordLevels === "undefined") {
-        console.error("wordLevels is not defined. Make sure words.js is loaded correctly.");
-        return;
-      }
+    let shuffledWords = [];
+    let currentIndex = 0;
+    let correctCount = 0;
+    let totalCount = 0;
 
-      let shuffledWords = [];
-      let currentIndex = 0;
-      let correctCount = 0;
-      let totalCount = 0;
+    const cardContainer = document.getElementById('cards');
+    const soundOutBtn = document.getElementById('soundOutBtn');
+    const correctBtn = document.getElementById('correctBtn');
+    const incorrectBtn = document.getElementById('incorrectBtn');
+    const scoreboard = document.getElementById('scoreboard');
+    const levelMenu = document.getElementById('levelMenu');
+    const gameArea = document.getElementById('gameArea');
 
-      const cardContainer = document.getElementById('cards');
-      const soundOutBtn = document.getElementById('soundOutBtn');
-      const revealBtn = document.getElementById('revealBtn');
-      const correctBtn = document.getElementById('correctBtn');
-      const nextWordBtn = document.getElementById('nextWordBtn');
-      const levelSelect = document.getElementById('levelSelect');
-      const scoreboard = document.getElementById('scoreboard');
+    function updateScore() {
+      scoreboard.textContent = `Correct: ${correctCount} / ${totalCount}`;
+    }
 
-      function updateScore() {
-        scoreboard.textContent = `Correct: ${correctCount} / ${totalCount}`;
-      }
+    function shuffleWords(level) {
+      const words = wordLevels[level] || [];
+      shuffledWords = [...words].sort(() => Math.random() - 0.5);
+      currentIndex = 0;
+      correctCount = 0;
+      totalCount = 0;
+      updateScore();
+    }
 
-      function shuffleWords() {
-        const selectedLevel = levelSelect.value;
-        const words = wordLevels[selectedLevel] || [];
-        shuffledWords = [...words].sort(() => Math.random() - 0.5);
+    function showWord(wordObj) {
+      cardContainer.innerHTML = '';
+      wordObj.parts.forEach(part => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        const img = document.createElement('img');
+        img.src = part;
+        img.alt = part;
+        card.appendChild(img);
+        cardContainer.appendChild(card);
+      });
+    }
+
+    function nextWord() {
+      if (currentIndex >= shuffledWords.length) {
         currentIndex = 0;
-        correctCount = 0;
-        totalCount = 0;
-        updateScore();
+        shuffledWords = [...shuffledWords].sort(() => Math.random() - 0.5);
       }
+      const wordObj = shuffledWords[currentIndex];
+      showWord(wordObj);
+      currentIndex++;
+      totalCount++;
+      updateScore();
+    }
 
-      function showWord(wordObj) {
-        cardContainer.innerHTML = '';
-        wordObj.parts.forEach(part => {
-          const card = document.createElement('div');
-          card.className = 'card';
-          const img = document.createElement('img');
-          img.src = part;
-          img.alt = part;
-          card.appendChild(img);
-          cardContainer.appendChild(card);
-        });
-      }
+    function startGame(level) {
+      levelMenu.style.display = 'none';
+      gameArea.style.display = 'block';
+      shuffleWords(level);
+      nextWord();
+    }
 
-      function nextWord() {
-        if (currentIndex >= shuffledWords.length) {
-          shuffleWords();
-        }
-        const wordObj = shuffledWords[currentIndex];
-        showWord(wordObj);
-        currentIndex++;
-        totalCount++;
-        updateScore();
-      }
-
-      revealBtn.addEventListener('click', () => {
-        const wordObj = shuffledWords[currentIndex - 1];
-        alert(`The word is: ${wordObj.word}`);
+    soundOutBtn.addEventListener('click', () => {
+      const wordObj = shuffledWords[currentIndex - 1];
+      wordObj.parts.forEach((part, i) => {
+        const audio = new Audio(part.replace('.png', '.mp3'));
+        setTimeout(() => {
+          audio.play();
+        }, i * 800);
       });
+    });
 
-      soundOutBtn.addEventListener('click', () => {
-        const wordObj = shuffledWords[currentIndex - 1];
-        wordObj.parts.forEach((part, i) => {
-          const audio = new Audio(part.replace('.png', '.mp3'));
-          setTimeout(() => {
-            audio.play();
-          }, i * 800);
-        });
-      });
+    correctBtn.addEventListener('click', () => {
+      correctCount++;
+      updateScore();
+      nextWord();
+    });
 
-      correctBtn.addEventListener('click', () => {
-        correctCount++;
-        updateScore();
-      });
-
-      nextWordBtn.addEventListener('click', nextWord);
-      levelSelect.addEventListener('change', () => {
-        shuffleWords();
-        nextWord();
-      });
-
-      shuffleWords();
+    incorrectBtn.addEventListener('click', () => {
+      updateScore();
       nextWord();
     });
   </script>
 </body>
 </html>
+
 
 
 
