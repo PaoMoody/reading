@@ -1,72 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Word Building Game</title>
+  <style>
+    body {
+      font-family: 'Avenir', sans-serif;
+      background-color: #ffffff;
+      margin: 0;
+      padding: 40px;
+      text-align: center;
+    }
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    .card {
+      width: 80px;
+      height: 100px;
+      margin: 10px;
+      background-color: #fffbe9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #5e98ab;
+      border-radius: 12px;
+      box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
+    }
+    .card img {
+      max-width: 90%;
+      max-height: 90%;
+    }
+    .word-image {
+      margin-top: 30px;
+      max-width: 200px;
+      display: none;
+    }
+    .controls {
+      margin-top: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      background-color: #ffc764;
+      color: #000;
+      cursor: pointer;
+      font-family: 'Avenir', sans-serif;
+    }
+    button:hover {
+      background-color: #e47e00;
+      color: white;
+    }
+  </style>
+</head>
 <body>
   <script src="words.js"></script>
-  
+
+  <h1>Build the Word</h1>
+  <div class="card-container" id="cards"></div>
+  <div class="controls">
+    <button id="soundOutBtn">Sound It Out</button>
+    <button id="revealBtn">Reveal Word</button>
+    <button id="nextWordBtn">Next Word</button>
+  </div>
+  <img id="wordImage" class="word-image" alt="Word Visual" />
+
   <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    if (typeof wordData === "undefined") {
-      console.error("wordData is not defined. Make sure words.js is loaded correctly.");
-      return;
-    }
-
-    let shuffledWords = [];
-    let currentIndex = 0;
-
-    const cardContainer = document.getElementById('cards');
-    const wordImage = document.getElementById('wordImage');
-    const soundOutBtn = document.getElementById('soundOutBtn');
-    const revealBtn = document.getElementById('revealBtn');
-    const nextWordBtn = document.getElementById('nextWordBtn');
-
-    function shuffleWords() {
-      shuffledWords = [...wordData].sort(() => Math.random() - 0.5);
-      currentIndex = 0;
-    }
-
-    function showWord(wordObj) {
-      cardContainer.innerHTML = '';
-      wordImage.style.display = 'none';
-      wordObj.parts.forEach(part => {
-        const card = document.createElement('div');
-        card.className = 'card';
-        const img = document.createElement('img');
-        img.src = part;
-        img.alt = part;
-        card.appendChild(img);
-        cardContainer.appendChild(card);
-      });
-    }
-
-    function nextWord() {
-      if (currentIndex >= shuffledWords.length) {
-        shuffleWords();
+    document.addEventListener("DOMContentLoaded", () => {
+      if (typeof wordData === "undefined") {
+        console.error("wordData is not defined. Make sure words.js is loaded correctly.");
+        return;
       }
-      const wordObj = shuffledWords[currentIndex];
-      showWord(wordObj);
-      currentIndex++;
-    }
 
-    revealBtn.addEventListener('click', () => {
-      const wordObj = shuffledWords[currentIndex - 1];
-      wordImage.src = wordObj.image;
-      wordImage.alt = wordObj.word;
-      wordImage.style.display = 'block';
-    });
+      let shuffledWords = [];
+      let currentIndex = 0;
 
-    soundOutBtn.addEventListener('click', () => {
-      const wordObj = shuffledWords[currentIndex - 1];
-      wordObj.parts.forEach((part, i) => {
-        const audio = new Audio(part.replace('.png', '.mp3'));
-        setTimeout(() => {
-          audio.play();
-        }, i * 800);
+      const cardContainer = document.getElementById('cards');
+      const wordImage = document.getElementById('wordImage');
+      const soundOutBtn = document.getElementById('soundOutBtn');
+      const revealBtn = document.getElementById('revealBtn');
+      const nextWordBtn = document.getElementById('nextWordBtn');
+
+      function shuffleWords() {
+        shuffledWords = [...wordData].sort(() => Math.random() - 0.5);
+        currentIndex = 0;
+      }
+
+      function showWord(wordObj) {
+        cardContainer.innerHTML = '';
+        wordImage.style.display = 'none';
+        wordObj.parts.forEach(part => {
+          const card = document.createElement('div');
+          card.className = 'card';
+          const img = document.createElement('img');
+          img.src = part;
+          img.alt = part;
+          card.appendChild(img);
+          cardContainer.appendChild(card);
+        });
+      }
+
+      function nextWord() {
+        if (currentIndex >= shuffledWords.length) {
+          shuffleWords();
+        }
+        const wordObj = shuffledWords[currentIndex];
+        showWord(wordObj);
+        currentIndex++;
+      }
+
+      revealBtn.addEventListener('click', () => {
+        const wordObj = shuffledWords[currentIndex - 1];
+        wordImage.src = wordObj.image;
+        wordImage.alt = wordObj.word;
+        wordImage.style.display = 'block';
       });
+
+      soundOutBtn.addEventListener('click', () => {
+        const wordObj = shuffledWords[currentIndex - 1];
+        wordObj.parts.forEach((part, i) => {
+          const audio = new Audio(part.replace('.png', '.mp3'));
+          setTimeout(() => {
+            audio.play();
+          }, i * 800);
+        });
+      });
+
+      nextWordBtn.addEventListener('click', nextWord);
+
+      shuffleWords();
+      nextWord();
     });
+  </script>
+</body>
+</html>
 
-    nextWordBtn.addEventListener('click', nextWord);
-
-    shuffleWords();
-    nextWord();
-  });
-</script>
 
 
