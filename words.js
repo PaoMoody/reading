@@ -109,7 +109,7 @@ const wordsByLevel = {
     ]
 
     // Level 2: Magic-E words
-    2: [
+  2: [
     { word: "cake", parts: ["C.png", "long-a.png", "K.png", "magic-E.png"], image: "cake.png" },
     { word: "lake", parts: ["L.png", "long-a.png", "K.png", "magic-E.png"], image: "lake.png" },
     { word: "name", parts: ["N.png", "long-a.png", "M.png", "magic-E.png"], image: "name.png" },
@@ -202,7 +202,8 @@ const wordsByLevel = {
 ]
 
    //Level 3
-   3:[ { word: "chat", parts: ["CH.png", "short-a.png", "T.png"], image: "chat.png" },
+  3:[ 
+    { word: "chat", parts: ["CH.png", "short-a.png", "T.png"], image: "chat.png" },
     { word: "ship", parts: ["SH.png", "short-i.png", "P.png"], image: "ship.png" },
     { word: "bath", parts: ["B.png", "short-a.png", "TH.png"], image: "bath.png" },
     { word: "chip", parts: ["CH.png", "short-i.png", "P.png"], image: "chip.png" },
@@ -241,7 +242,7 @@ const wordsByLevel = {
     { word: "mash", parts: ["M.png", "short-a.png", "SH.png"], image: "mash.png" },
     { word: "shed", parts: ["SH.png", "short-e.png", "D.png"], image: "shed.png" },
     { word: "shun", parts: ["SH.png", "short-u.png", "N.png"], image: "shun.png" },
-    { word: "wish", parts: ["W.png", "short-i.png", "SH.png"], image: "wish.png" },
+    { word: "wish", parts: ["W.png", "short-i.png", "SH.png"], image: "wish.png" }
     // ... more Level 3 entries to follow
   ]
 };
