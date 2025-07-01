@@ -136,7 +136,6 @@ const wordsByLevel = {
     { word: "bath", parts: ["B.png", "short-a.png", "TH.png"], image: "bath.png" },
     { word: "chip", parts: ["CH.png", "short-i.png", "P.png"], image: "chip.png" },
     { word: "math", parts: ["M.png", "short-a.png", "TH.png"], image: "math.png" },
-    3: [
     { word: "chat", parts: ["CH.png", "short-a.png", "T.png"], image: "chat.png" },
     { word: "ship", parts: ["SH.png", "short-i.png", "P.png"], image: "ship.png" },
     { word: "bath", parts: ["B.png", "short-a.png", "TH.png"], image: "bath.png" },
