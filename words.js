@@ -106,6 +106,7 @@ const wordsByLevel = {
     { word: "item", parts: ["long-i.png", "T.png", "short-e.png", "M.png"], image: "item.png" },
     { word: "open", parts: ["long-o.png", "P.png", "short-e.png", "N.png"], image: "open.png" },
     { word: "unit", parts: ["long-u.png", "N.png", "short-i.png", "T.png"], image: "unit.png" }
+    ]
 
     // Level 2: Magic-E words
     2: [
@@ -197,10 +198,11 @@ const wordsByLevel = {
     { word: "pen", parts: ["P.png", "short-e.png", "N.png"], image: "pen.png" },
     { word: "bib", parts: ["B.png", "short-i.png", "B.png"], image: "bib.png" },
     { word: "mop", parts: ["M.png", "short-o.png", "P.png"], image: "mop.png" },
-    { word: "cup", parts: ["C.png", "short-u.png", "P.png"], image: "cup.png" },
+    { word: "cup", parts: ["C.png", "short-u.png", "P.png"], image: "cup.png" }
+]
 
    //Level 3
-    { word: "chat", parts: ["CH.png", "short-a.png", "T.png"], image: "chat.png" },
+   3:[ { word: "chat", parts: ["CH.png", "short-a.png", "T.png"], image: "chat.png" },
     { word: "ship", parts: ["SH.png", "short-i.png", "P.png"], image: "ship.png" },
     { word: "bath", parts: ["B.png", "short-a.png", "TH.png"], image: "bath.png" },
     { word: "chip", parts: ["CH.png", "short-i.png", "P.png"], image: "chip.png" },
