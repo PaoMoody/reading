@@ -1,4 +1,3 @@
-// Level 1: Basic CVC and Vowel Words
 const wordsByLevel = {
   1: [
     { word: "bag", parts: ["B.png", "short-a.png", "G.png"], image: "bag.png" },
@@ -108,15 +107,36 @@ const wordsByLevel = {
     { word: "open", parts: ["long-o.png", "P.png", "short-e.png", "N.png"], image: "open.png" },
     { word: "unit", parts: ["long-u.png", "N.png", "short-i.png", "T.png"], image: "unit.png" }
   ],
-
-  // Level 2: Magic-E words and review words
   2: [
-    // (your level 2 array goes here—no edits needed except removing the final comma at the end of the array)
-    // ...[same as your original Level 2]
+    { word: "cake", parts: ["C.png", "long-a.png", "K.png", "magic-E.png"], image: "cake.png" },
+    { word: "lake", parts: ["L.png", "long-a.png", "K.png", "magic-E.png"], image: "lake.png" },
+    { word: "name", parts: ["N.png", "long-a.png", "M.png", "magic-E.png"], image: "name.png" },
+    { word: "tape", parts: ["T.png", "long-a.png", "P.png", "magic-E.png"], image: "tape.png" },
+    { word: "game", parts: ["G.png", "long-a.png", "M.png", "magic-E.png"], image: "game.png" },
+    { word: "bike", parts: ["B.png", "long-i.png", "K.png", "magic-E.png"], image: "bike.png" },
+    { word: "like", parts: ["L.png", "long-i.png", "K.png", "magic-E.png"], image: "like.png" },
+    { word: "hide", parts: ["H.png", "long-i.png", "D.png", "magic-E.png"], image: "hide.png" },
+    { word: "ride", parts: ["R.png", "long-i.png", "D.png", "magic-E.png"], image: "ride.png" },
+    { word: "time", parts: ["T.png", "long-i.png", "M.png", "magic-E.png"], image: "time.png" },
+    { word: "note", parts: ["N.png", "long-o.png", "T.png", "magic-E.png"], image: "note.png" },
+    { word: "rope", parts: ["R.png", "long-o.png", "P.png", "magic-E.png"], image: "rope.png" },
+    { word: "home", parts: ["H.png", "long-o.png", "M.png", "magic-E.png"], image: "home.png" },
+    { word: "joke", parts: ["J.png", "long-o.png", "K.png", "magic-E.png"], image: "joke.png" },
+    { word: "vote", parts: ["V.png", "long-o.png", "T.png", "magic-E.png"], image: "vote.png" },
+    { word: "cube", parts: ["C.png", "long-u.png", "B.png", "magic-E.png"], image: "cube.png" },
+    { word: "mule", parts: ["M.png", "long-u.png", "L.png", "magic-E.png"], image: "mule.png" },
+    { word: "rude", parts: ["R.png", "long-u.png", "D.png", "magic-E.png"], image: "rude.png" },
+    { word: "tube", parts: ["T.png", "long-u.png", "B.png", "magic-E.png"], image: "tube.png" },
+    { word: "cute", parts: ["C.png", "long-u.png", "T.png", "magic-E.png"], image: "cute.png" }
+    // Add the rest of your Level 2 words here, maintaining the same object format.
   ],
-
-  // Level 3: Digraphs, blends, etc. (de-duplicated)
   3: [
+    { word: "chat", parts: ["CH.png", "short-a.png", "T.png"], image: "chat.png" },
+    { word: "ship", parts: ["SH.png", "short-i.png", "P.png"], image: "ship.png" },
+    { word: "bath", parts: ["B.png", "short-a.png", "TH.png"], image: "bath.png" },
+    { word: "chip", parts: ["CH.png", "short-i.png", "P.png"], image: "chip.png" },
+    { word: "math", parts: ["M.png", "short-a.png", "TH.png"], image: "math.png" },
+    3: [
     { word: "chat", parts: ["CH.png", "short-a.png", "T.png"], image: "chat.png" },
     { word: "ship", parts: ["SH.png", "short-i.png", "P.png"], image: "ship.png" },
     { word: "bath", parts: ["B.png", "short-a.png", "TH.png"], image: "bath.png" },
@@ -144,4 +164,17 @@ const wordsByLevel = {
     { word: "dish", parts: ["D.png", "short-i.png", "SH.png"], image: "dish.png" },
     { word: "fish", parts: ["F.png", "short-i.png", "SH.png"], image: "fish.png" },
     { word: "mash", parts: ["M.png", "short-a.png", "SH.png"], image: "mash.png" },
-    { word: "shun", parts: ["
+    { word: "shun", parts: ["SH.png", "short-u.png", "N.png"], image: "shun.png" },
+    { word: "sing", parts: ["S.png", "short-i.png", "NG.png"], image: "sing.png" },
+    { word: "long", parts: ["L.png", "short-o.png", "NG.png"], image: "long.png" },
+    { word: "king", parts: ["K.png", "short-i.png", "NG.png"], image: "king.png" },
+    { word: "ring", parts: ["R.png", "short-i.png", "NG.png"], image: "ring.png" },
+    { word: "wing", parts: ["W.png", "short-i.png", "NG.png"], image: "wing.png" },
+    { word: "song", parts: ["S.png", "short-o.png", "NG.png"], image: "song.png" },
+    { word: "lung", parts: ["L.png", "short-u.png", "NG.png"], image: "lung.png" },
+    { word: "bang", parts: ["B.png", "short-a.png", "NG.png"], image: "bang.png" },
+    { word: "hang", parts: ["H.png", "short-a.png", "NG.png"], image: "hang.png" },
+    { word: "fang", parts: ["F.png", "short-a.png", "NG.png"], image: "fang.png" }
+    // ...continue adding as many as needed.
+  ]
+    };
