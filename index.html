@@ -83,6 +83,7 @@
       <button id="soundOutBtn">Sound It Out</button>
       <button id="correctBtn">✓ Correct</button>
       <button id="incorrectBtn">✗ Not Yet</button>
+      <button id="backBtn">← Back to Levels</button>
     </div>
     <div id="scoreboard"></div>
   </div>
@@ -92,11 +93,13 @@
     let currentIndex = 0;
     let correctCount = 0;
     let totalCount = 0;
+    let currentLevel = 1;
 
     const cardContainer = document.getElementById('cards');
     const soundOutBtn = document.getElementById('soundOutBtn');
     const correctBtn = document.getElementById('correctBtn');
     const incorrectBtn = document.getElementById('incorrectBtn');
+    const backBtn = document.getElementById('backBtn');
     const scoreboard = document.getElementById('scoreboard');
     const levelMenu = document.getElementById('levelMenu');
     const gameArea = document.getElementById('gameArea');
@@ -106,7 +109,7 @@
     }
 
     function shuffleWords(level) {
-      const words = wordLevels[level] || [];
+      const words = wordsByLevel[level] || [];
       shuffledWords = [...words].sort(() => Math.random() - 0.5);
       currentIndex = 0;
       correctCount = 0;
@@ -140,6 +143,7 @@
     }
 
     function startGame(level) {
+      currentLevel = level;
       levelMenu.style.display = 'none';
       gameArea.style.display = 'block';
       shuffleWords(level);
@@ -166,11 +170,17 @@
       updateScore();
       nextWord();
     });
+
+    backBtn.addEventListener('click', () => {
+      gameArea.style.display = 'none';
+      levelMenu.style.display = 'flex';
+      cardContainer.innerHTML = '';
+      scoreboard.textContent = '';
+      shuffledWords = [];
+      currentIndex = 0;
+      correctCount = 0;
+      totalCount = 0;
+    });
   </script>
 </body>
 </html>
-
-
-
-
-
