@@ -106,7 +106,7 @@ const wordsByLevel = {
     { word: "item", parts: ["long-i.png", "T.png", "short-e.png", "M.png"], image: "item.png" },
     { word: "open", parts: ["long-o.png", "P.png", "short-e.png", "N.png"], image: "open.png" },
     { word: "unit", parts: ["long-u.png", "N.png", "short-i.png", "T.png"], image: "unit.png" },
-    ]
+    ],
 
     // Level 2: Magic-E words
   2: [
@@ -199,7 +199,7 @@ const wordsByLevel = {
     { word: "bib", parts: ["B.png", "short-i.png", "B.png"], image: "bib.png" },
     { word: "mop", parts: ["M.png", "short-o.png", "P.png"], image: "mop.png" },
     { word: "cup", parts: ["C.png", "short-u.png", "P.png"], image: "cup.png" },
-]
+],
 
    //Level 3
   3:[ 
